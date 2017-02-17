@@ -1,0 +1,35 @@
+#!/bin/bash -e
+set -x
+
+die () {
+	echo -e "\033[31m ================================\033[0m"
+	echo -e "\033[31m Deployment FAILED on $HOSTNAME\033[0m"
+	echo -e "\033[31m ================================\033[0m"
+	exit 2
+}
+
+case "$1" in
+  	configure)
+
+	#Read Permissions for all users for confd 
+	chmod a+r /etc/confd/templates/*.conf.tmpl
+	chmod a+r /etc/confd/conf.d/*.conf.toml
+
+	if [[ -n $AEROSPIKE_CONF_BUCKET ]]
+	then
+		BUCKET=$AEROSPIKE_CONF_BUCKET
+	else
+		BUCKET=aerospike-default
+	fi
+
+	sed -i -e "s/_BUCKET_/${BUCKET}/" /etc/confd/conf.d/aerospike-server-enterprise.conf.toml
+
+	sudo /etc/init.d/fk-config-service-confd restart
+
+	;;
+esac
+
+echo -e "\033[32m ================================\033[0m"
+echo -e "\033[32m INSTALL Completed on $HOSTNAME\033[0m"
+echo -e "\033[32m ================================\033[0m"
+

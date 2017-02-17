@@ -1,0 +1,60 @@
+#!/bin/bash -e
+
+if [ "$#" -lt 4 ]; then
+	echo "Usage Direction:"
+	echo "There should be a minimum of 4 parameters. 1->BaseDirectory 2->PackageName 3->PackageBuildVersion 4->ASServerVersion 5->ASToolsVersion(Optional- Default=ServerVersion)"
+	exit 1
+fi
+
+if ! [ -e "$1" ]; then
+	echo "$1 not found"
+	exit 1
+fi
+
+if ! [ -d "$1" ]; then
+	echo "$1 not a directory"
+	exit 1
+fi
+
+#Create copy of packge-common here
+
+BASE_DIR=$1
+AS_3P_PACKAGE_NAME=$2
+AS_3P_PACKAGE_BUILD_VERSION=$3
+AS_SERVER_VERSION=$4
+DEB_DIR=deb
+NUM_SUPPORTED_NAMESPACES=5
+
+if [ -d "$DEB_DIR" ]; then
+	rm -rf "$DEB_DIR"
+fi
+
+mkdir "$DEB_DIR"
+cp -r ${BASE_DIR}/DEBIAN ${DEB_DIR}/DEBIAN
+cp -r ${BASE_DIR}/etc ${DEB_DIR}/etc
+
+if [ -z "$5" ]; then
+	AS_TOOLS_VERSION=$4
+else
+	AS_TOOLS_VERSION=$5
+fi
+
+NAMESPACE_TMPL_STANZA="$(cat ${BASE_DIR}/templates/namespace-stanza.conf.tmpl)"
+NAMESPACE_STANZA=""
+
+NAMESPACE_TOML_STANZA="$(cat ${BASE_DIR}/templates/namespace-keys.conf.toml)"
+NAMESPACE_TOML=""
+
+for namespace_num in $(seq 1 $NUM_SUPPORTED_NAMESPACES);
+do
+	NAMESPACE_STANZA+="$(echo "$NAMESPACE_TMPL_STANZA" | sed "s/<<X>>/$namespace_num/g")"
+	NAMESPACE_TOML+="$(echo "$NAMESPACE_TOML_STANZA" | sed "s/<<X>>/$namespace_num/g")"
+done
+
+find ${DEB_DIR} -type f | xargs sed -i '' -e "s/_VERSION_/${AS_SERVER_VERSION}/g" -e "s/_PACKAGE_/${AS_3P_PACKAGE_NAME}/g" -e "s/_TOOLSVERSION_/${AS_TOOLS_VERSION}/g" -e "s/_BUILD_/${AS_3P_PACKAGE_BUILD_VERSION}/g"
+
+perl -i.bak -pe 's|_NAMESPACE_STANZA_|'"${NAMESPACE_STANZA}"'|g' ./$DEB_DIR/etc/confd/templates/aerospike-server-enterprise.conf.tmpl
+perl -i.bak -pe 's|_NAMESPACE_KEYS_|'"${NAMESPACE_TOML}"'|g' ./$DEB_DIR/etc/confd/conf.d/aerospike-server-enterprise.conf.toml
+
+find ${DEB_DIR} -name "*.bak" -type f -delete
+

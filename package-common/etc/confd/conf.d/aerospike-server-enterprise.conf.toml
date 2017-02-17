@@ -1,0 +1,30 @@
+[template]
+prefix = "_BUCKET_"
+src = "aerospike-server-enterprise.conf.tmpl"
+dest = "/etc/aerospike/aerospike.conf"
+keys = [
+  "/service-user",
+  "/service-group",
+  "/service-paxos-single-replica-limit",
+  "/service-service-threads",
+  "/service-transaction-queues",
+  "/service-transaction-threads-per-queue",
+  "/service-transaction-pending-limit",
+  "/service-proto-fd-max",
+  "/service-nsup-period",
+  "/service-migrate-threads",
+  "/service-pidfile",
+  "/logging-file",
+  "/logging-file-context",
+  "/network-service-address",
+  "/network-service-port",
+  "/network-heartbeat-mode",
+  "/network-heartbeat-address",
+  "/network-heartbeat-port",
+  "/network-heartbeat-mesh-seed-address-port",
+  "/network-heartbeat-interval",
+  "/network-heartbeat-timeout",
+  "/network-fabric-port",
+  "/network-info-port",
+  _NAMESPACE_KEYS_
+]

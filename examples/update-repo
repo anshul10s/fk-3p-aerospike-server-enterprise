@@ -1,0 +1,5 @@
+reposervice --host repo-svc-app-0001.nm.flipkart.com --port 8080 pub --repo aerospike-server-enterprise --appkey aerospike-server-enterprise --debs aerospike-server-enterprise-3.9.1.1.debian7.x86_64.deb
+
+reposervice --host repo-svc-app-0001.nm.flipkart.com --port 8080 pub --repo aerospike-tools --appkey aerospike-tools --debs aerospike-tools-3.9.1.2.debian7.x86_64.deb
+
+reposervice --host repo-svc-app-0001.nm.flipkart.com --port 8080 pub --repo fk-3p-aerospike-server-enterprise --appkey fk-3p-aerospike-server-enterprise --debs fk-3p-aerospike-server-enterprise-3.9.1.1.deb

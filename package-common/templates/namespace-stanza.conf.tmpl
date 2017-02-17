@@ -1,0 +1,64 @@
+
+{{ if exists "/namespace-<<X>>-name" }}
+namespace {{ getv "/namespace-<<X>>-name" }} {
+	replication-factor {{ getv "/namespace-<<X>>-replication-factor" }}
+	memory-size {{ getv "/namespace-<<X>>-memory-size" }}
+
+	{{ if exists "/namespace-<<X>>-conflict-resolution-policy" }}
+	conflict-resolution-policy {{ getv "/namespace-<<X>>-conflict-resolution-policy" }}
+	{{ end }}
+
+	{{ if exists "/namespace-<<X>>-default-ttl" }}
+	default-ttl {{ getv "/namespace-<<X>>-default-ttl" }}
+	{{ end }}
+	{{ if exists "/namespace-<<X>>-single-bin" }}
+	single-bin {{ getv "/namespace-<<X>>-single-bin" }}
+	{{ end }}
+	{{ if exists "/namespace-<<X>>-data-in-index" }}
+	data-in-index {{ getv "/namespace-<<X>>-data-in-index" }}
+	{{ end }}
+	{{ if exists "/namespace-<<X>>-ldt-enabled" }}
+	ldt-enabled {{ getv "/namespace-<<X>>-ldt-enabled" }}
+	{{ end }}
+	{{ if eq (getv "/namespace-<<X>>-storage-engine") "device" }}
+	storage-engine {{ getv "/namespace-<<X>>-storage-engine" }} {
+		
+		{{ if exists "/namespace-<<X>>-storage-engine-device" }}
+		{{ range jsonArray (getv "/namespace-<<X>>-storage-engine-device") }}
+		device {{.}}
+		{{ end }}
+		{{ end }}
+
+		{{ if exists "/namespace-<<X>>-storage-engine-file" }}
+		{{ range jsonArray (getv "/namespace-<<X>>-storage-engine-file") }}
+		file {{.}}
+		{{ end }}
+		{{ end }}
+
+		{{ if exists "/namespace-<<X>>-write-block-size" }}
+		write-block-size {{ getv "/namespace-<<X>>-write-block-size" }}
+		{{ end }}
+		{{ if exists "/namespace-<<X>>-storage-engine-filesize" }}
+		filesize {{ getv "/namespace-<<X>>-storage-engine-filesize" }}
+		{{ end }}
+		{{ if exists "/namespace-<<X>>-storage-engine-data-in-memory" }}
+		data-in-memory {{ getv "/namespace-<<X>>-storage-engine-data-in-memory" }}
+		{{ end }}
+	}
+	{{ else }}
+	storage-engine {{ getv "/namespace-<<X>>-storage-engine" }}	
+	{{ end }}
+
+	{{ if exists "/namespace-<<X>>-stop-writes-pct" }}
+	stop-writes-pct {{ getv "/namespace-<<X>>-stop-writes-pct" }}
+	{{ end }}
+	{{ if exists "/namespace-<<X>>-high-water-memory-pct" }}
+	high-water-memory-pct {{ getv "/namespace-<<X>>-high-water-memory-pct" }}
+	{{ end }}
+	{{ if exists "/namespace-<<X>>-high-water-disk-pct" }}
+	high-water-disk-pct {{ getv "/namespace-<<X>>-high-water-disk-pct" }}
+	{{ end }}
+}
+{{ end }}
+
+

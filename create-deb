@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ "$#" -ne 2 ]; then
+	echo "Usage Direction:"
+	echo "First parameter-> Directory to create the deb out of"
+	echo "Second parameter->Deb Name"
+	exit 1
+fi
+
+if ! [ -e "$1" ]; then
+	echo "$1 not found"
+	exit 1
+fi
+
+if ! [ -d "$1" ]; then
+	echo "$1 not a directory"
+	exit 1
+fi
+
+DEB_DIR=$1
+DEB_NAME=$2
+
+dpkg-deb -b ${DEB_DIR} ${DEB_NAME}
+

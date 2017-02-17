@@ -1,0 +1,22 @@
+[
+    {
+        "repoName": "aerospike-enterprise-server",
+        "repoVersion": 1,
+        "repoReferenceType": "EXACT"
+    },
+    {
+        "repoName": "aerospike-tools",
+        "repoVersion": 1,
+        "repoReferenceType": "EXACT"
+    },
+    {
+        "repoName": "fk-config-service-confd",
+        "repoVersion": 42,
+        "repoReferenceType": "EXACT"
+    },
+    {
+        "repoName": "fk-3p-aerospike-enterprise-server",
+        "repoVersion": 1,
+        "repoReferenceType": "EXACT"
+    }
+]

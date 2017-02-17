@@ -1,0 +1,79 @@
+service {
+
+{{ if exists "/service-user" }}
+	user {{ getv "/service-user" }}
+{{ end }}
+{{ if exists "/service-group" }}
+	group {{ getv "/service-group" }}
+{{ end }}
+{{ if exists "/service-paxos-single-replica-limit" }}
+	paxos-single-replica-limit {{ getv "/service-paxos-single-replica-limit" }}
+{{ end }}
+{{ if exists "/service-service-threads" }}
+	service-threads {{ getv "/service-service-threads" }}
+{{ end }}
+{{ if exists "/service-transaction-queues" }}
+	transaction-queues {{ getv "/service-transaction-queues" }}
+{{ end }}
+{{ if exists "/service-transaction-threads-per-queue" }}
+	transaction-threads-per-queue {{ getv "/service-transaction-threads-per-queue" }}
+{{ end }}
+{{ if exists "/service-transaction-pending-limit" }}
+        transaction-pending-limit {{ getv "/service-transaction-pending-limit" }}
+{{ end }}
+{{ if exists "/service-proto-fd-max" }}
+	proto-fd-max {{ getv "/service-proto-fd-max" }}
+{{ end }}
+{{ if exists "/service-nsup-period" }}
+	nsup-period {{ getv "/service-nsup-period" }}
+{{ end }}
+{{ if exists "/service-migrate-threads" }}
+	migrate-threads {{ getv "/service-migrate-threads" }}
+{{ end }}
+{{ if exists "/service-pidfile" }}
+	pidfile {{ getv "/service-pidfile" }}
+{{ end }}
+
+}
+
+logging {
+        file {{ getv "/logging-file"}} {
+	{{range jsonArray (getv "/logging-file-context")}}
+		context {{.}}
+	{{ end }}
+        }
+}
+
+network {
+	service {
+		address {{ getv "/network-service-address" }}
+		port {{ getv "/network-service-port" }}
+	}
+
+	heartbeat {
+		mode {{ getv "/network-heartbeat-mode" }}
+
+		{{ if exists "/network-heartbeat-address" }}
+		address {{ getv "/network-heartbeat-address" }}
+		{{ end }}
+
+		port {{ getv "/network-heartbeat-port" }}
+
+		{{range jsonArray (getv "/network-heartbeat-mesh-seed-address-port")}}
+		mesh-seed-address-port {{.}}
+		{{ end }}
+
+		interval {{ getv "/network-heartbeat-interval" }}
+		timeout {{ getv "/network-heartbeat-timeout" }}
+	}
+
+	fabric {
+		port {{ getv "/network-fabric-port" }}
+	}
+
+	info {
+		port {{ getv "/network-info-port" }}
+	}
+}
+
+_NAMESPACE_STANZA_

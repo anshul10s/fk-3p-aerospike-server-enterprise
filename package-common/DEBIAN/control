@@ -1,0 +1,8 @@
+Package: _PACKAGE_ 
+Version: _VERSION_._BUILD_
+Section: flipkart/3p
+Priority: standard
+Depends: aerospike-tools (= _TOOLSVERSION_), aerospike-server-enterprise (= _VERSION_-1), fk-config-service-confd
+Architecture: all
+Maintainer: Pricing Dev <pricing-dev@flipkart.com>
+Description: Flipkart Customised Aerospike Enterprise Server Package (_VERSION_)

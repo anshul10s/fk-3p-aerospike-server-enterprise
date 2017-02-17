@@ -1,0 +1,5 @@
+#!/bin/bash -e
+
+#Removing the confd files
+rm -f /etc/confd/conf.d/aerospike-server-enterprise.conf.toml
+rm -f /etc/confd/templates/aerospike-server-enterprise.conf.tmpl
