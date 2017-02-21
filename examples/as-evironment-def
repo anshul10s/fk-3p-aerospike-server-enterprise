@@ -1,6 +1,6 @@
 [
     {
-        "repoName": "aerospike-enterprise-server",
+        "repoName": "aerospike-server-enterprise",
         "repoVersion": 1,
         "repoReferenceType": "EXACT"
     },
@@ -15,7 +15,7 @@
         "repoReferenceType": "EXACT"
     },
     {
-        "repoName": "fk-3p-aerospike-enterprise-server",
+        "repoName": "fk-3p-aerospike-server-enterprise",
         "repoVersion": 1,
         "repoReferenceType": "EXACT"
     }
