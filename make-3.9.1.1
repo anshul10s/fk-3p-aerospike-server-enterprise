@@ -1,11 +1,12 @@
 #!/bin/bash -e
 
 AS_SERVER_VERSION=3.9.1.1
+AS_TOOLS_VERSION=3.9.1.2
 PAC_NAME=fk-3p-aerospike-server-enterprise-${AS_SERVER_VERSION}
 BUILD_VER=$(date +%Y%m%d-%H%M)
 BASE_DIR=package-common
 
-./make-fk-3p-aerospike-deb $BASE_DIR $PAC_NAME $BUILD_VER $AS_SERVER_VERSION
+./make-fk-3p-aerospike-deb $BASE_DIR $PAC_NAME $BUILD_VER $AS_SERVER_VERSION $AS_TOOLS_VERSION
 
 #Do customization here if rquired to the deb folder 
 

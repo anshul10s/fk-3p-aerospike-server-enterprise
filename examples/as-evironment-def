@@ -1,11 +1,11 @@
 [
     {
-        "repoName": "aerospike-server-enterprise",
+        "repoName": "pricing-aerospike-server-enterprise",
         "repoVersion": 1,
         "repoReferenceType": "EXACT"
     },
     {
-        "repoName": "aerospike-tools",
+        "repoName": "pricing-aerospike-tools",
         "repoVersion": 1,
         "repoReferenceType": "EXACT"
     },
