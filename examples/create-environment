@@ -1,1 +1,1 @@
-reposervice --host repo-svc-app-0001.nm.flipkart.com --port 8080 penv --name pricing_aerospike_3.9.1.1_env --appkey pricing --envdef as-environment-def --debug true
+reposervice --host repo-svc-app-0001.nm.flipkart.com --port 8080 penv --name pricing_aerospike_3.9.1.1_env --appkey pricing --envdef as-evironment-def --debug true
